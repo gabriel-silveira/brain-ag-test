@@ -41,6 +41,7 @@
   position: absolute;
   top: -54px;
   right: 17px;
+  width: 100px;
 }
 
 .table-small-font {
@@ -56,6 +57,30 @@
   flex-direction: column;
 }
 
+.flex-item.w-1 {
+  display: flex;
+  flex-direction: column;
+  width: 8.3%;
+}
+
+.flex-item.w-2 {
+  display: flex;
+  flex-direction: column;
+  width: 16.6%;
+}
+
+.flex-item.w-3 {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+}
+
+.flex-item.w-4 {
+  display: flex;
+  flex-direction: column;
+  width: 33.3%;
+}
+
 .rural-producer-form-first-row {
   width: 100%;
 }
@@ -68,4 +93,24 @@
 .rural-producer-form-first-row > div:last-child {
   width: 19%;
   margin-right: 0;
+}
+
+.card {
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cursor-pointer * {
+  cursor: pointer;
+}
+
+.float-left {
+  float: left;
+}
+
+.mr-30 {
+  margin-right: 30px;
 }
