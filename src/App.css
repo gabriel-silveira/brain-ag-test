@@ -46,3 +46,26 @@
 .table-small-font {
   font-size: 0.8em;
 }
+
+.flex-container {
+  display: flex;
+}
+
+.flex-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.rural-producer-form-first-row {
+  width: 100%;
+}
+
+.rural-producer-form-first-row > div {
+  width: 20%;
+  margin-right: 1%;
+}
+
+.rural-producer-form-first-row > div:last-child {
+  width: 19%;
+  margin-right: 0;
+}
