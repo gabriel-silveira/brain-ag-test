@@ -10,6 +10,10 @@ const router = createBrowserRouter([
   {
     path: "/create",
     element: <CreateRuralProducerPage />,
+  },
+  {
+    path: "/edit/:id",
+    element: <CreateRuralProducerPage />,
   }
 ]);
 

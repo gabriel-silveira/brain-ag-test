@@ -114,3 +114,7 @@
 .mr-30 {
   margin-right: 30px;
 }
+
+.icon-button:hover {
+  color: rgb(79, 70, 229);
+}

@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import {useParams} from 'react-router';
 import BrazilStatesListBox from "../listboxes/brazil-states";
 import {useDispatch} from "react-redux";
 import {createRuralProducer} from "../../store/rural-producer/actions";
@@ -8,6 +9,9 @@ import {IRuralProducer} from "../../_interfaces/rural_producer";
 function RuralProducerForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {id} = useParams();
+
+  console.log(id);
 
   const goHome = () => navigate('/');
 
@@ -24,23 +28,23 @@ function RuralProducerForm() {
   });
 
   const submitRuralProducer = () => {
-    dispatch(createRuralProducer({ ...ruralProducer }));
+    dispatch(createRuralProducer({...ruralProducer}));
 
     goHome();
   };
 
   const setRuralProducer = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const {name, value} = e.target;
 
-    setDetails((prev) => ({ ...prev, [name]: value }));
+    setDetails((prev) => ({...prev, [name]: value}));
   };
 
   const changeBrazilState = (value: string) => {
-    setDetails((prev) => ({ ...prev, state: value }));
+    setDetails((prev) => ({...prev, state: value}));
   };
 
   const handleCropsPlanted = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
+    const {value, checked} = e.target;
 
     if (checked) {
       // add crop planted
