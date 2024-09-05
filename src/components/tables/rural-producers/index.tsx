@@ -1,12 +1,15 @@
 import React from 'react';
-import ruralProducersList from '../../../_data/rural-producers.json';
 import {IRuralProducer} from "../../../_interfaces/rural_producer";
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 function RuralProducersTable() {
   const navigate = useNavigate();
 
   const goCreatePage = () => navigate('/create');
+
+  // @ts-ignore
+  const { ruralProducers } = useSelector(rootReducer => rootReducer.ruralProducerReducer)
 
   return (
     <div>
@@ -37,7 +40,7 @@ function RuralProducersTable() {
         </tr>
         </thead>
         <tbody className="divide-y divide-slate-200 bg-white text-slate-800">
-        {ruralProducersList.map(RuralProducersTableRow)}
+        {ruralProducers.map(RuralProducersTableRow)}
         </tbody>
       </table>
     </div>

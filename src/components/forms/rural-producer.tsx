@@ -1,11 +1,31 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
 import BrazilStatesListBox from "../listboxes/brazil-states";
+import {useDispatch} from "react-redux";
+import {createRuralProducer} from "../../store/rural-producer/actions";
 
 function RuralProducerForm() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const goHome = () => navigate('/');
+
+  const submitRuralProducer = () => {
+    dispatch(createRuralProducer(
+      {
+        "document": 25889365000140,
+        "producer_name": "Fulano de Tal",
+        "farm_name": "Fazenda do Fulano",
+        "city": "Salvador",
+        "state": "Bahia",
+        "farm_area": 230,
+        "arable_area": 140,
+        "vegetation_area": 190,
+        "crops_planted": ["Cana de Açúcar", "Soja", "Café"]
+      }));
+
+    goHome();
+  };
 
   return (
     <div className="card">
@@ -166,6 +186,7 @@ function RuralProducerForm() {
             className="flex w-full justify-center rounded-md bg-indigo-600 font-semibold px-3 py-1.5
             leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2
             focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            onClick={submitRuralProducer}
           >
             Cadastrar
           </button>
