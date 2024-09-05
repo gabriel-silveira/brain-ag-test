@@ -3,18 +3,28 @@ import RuralProducerActionTypes from "./action-types";
 const initialState = {
   ruralProducers: [
     {
-      "document": 33871402000110,
-      "producer_name": "Gabriel Silveira de Souza",
-      "farm_name": "Fazenda do Gabriel",
-      "city": "Caraguatatuba",
-      "state": "São Paulo",
-      "farm_area": 100,
-      "arable_area": 50,
-      "vegetation_area": 80,
-      "crops_planted": ["Algodão", "Milho"]
+      document: 33871402000110,
+      producer_name: "Gabriel Silveira de Souza",
+      farm_name: "Fazenda do Gabriel",
+      city: "Caraguatatuba",
+      state: "São Paulo",
+      farm_area: 100,
+      arable_area: 50,
+      vegetation_area: 80,
+      crops_planted: ["Algodão", "Milho"]
     }
   ],
-  ruralProducer: null,
+  ruralProducer: {
+    document: 0,
+    producer_name: "",
+    farm_name: "",
+    city: "",
+    state: "",
+    farm_area: 0,
+    arable_area: 0,
+    vegetation_area: 0,
+    crops_planted: []
+  },
 };
 
 const ruralProducerReducer = (
@@ -26,6 +36,11 @@ const ruralProducerReducer = (
       return {
         ...state,
         ruralProducers: [...state.ruralProducers, action.payload],
+      };
+    case RuralProducerActionTypes.SET:
+      return {
+        ...state,
+        ruralProducer: {...action.payload},
       };
     default:
       return state;

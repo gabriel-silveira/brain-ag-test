@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import BrazilStatesListBox from "../listboxes/brazil-states";
 import {useDispatch} from "react-redux";
@@ -10,21 +10,32 @@ function RuralProducerForm() {
 
   const goHome = () => navigate('/');
 
+  const [ruralProducer, setDetails] = useState({
+    document: 0,
+    producer_name: "",
+    farm_name: "",
+    city: "",
+    state: "",
+    farm_area: 0,
+    arable_area: 0,
+    vegetation_area: 0,
+    crops_planted: []
+  });
+
   const submitRuralProducer = () => {
-    dispatch(createRuralProducer(
-      {
-        "document": 25889365000140,
-        "producer_name": "Fulano de Tal",
-        "farm_name": "Fazenda do Fulano",
-        "city": "Salvador",
-        "state": "Bahia",
-        "farm_area": 230,
-        "arable_area": 140,
-        "vegetation_area": 190,
-        "crops_planted": ["Cana de Açúcar", "Soja", "Café"]
-      }));
+    dispatch(createRuralProducer({ ...ruralProducer }));
 
     goHome();
+  };
+
+  const setRuralProducer = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setDetails((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const changeBrazilState = (value: string) => {
+    setDetails((prev) => ({ ...prev, state: value }));
   };
 
   return (
@@ -36,9 +47,11 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              type="text"
-              required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              type="text"
+              name="document"
+              required
+              onChange={setRuralProducer}
             />
           </div>
         </div>
@@ -49,9 +62,11 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              type="text"
-              required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              type="text"
+              name="producer_name"
+              required
+              onChange={setRuralProducer}
             />
           </div>
         </div>
@@ -62,9 +77,11 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              type="text"
-              required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              type="text"
+              name="farm_name"
+              required
+              onChange={setRuralProducer}
             />
           </div>
         </div>
@@ -75,15 +92,19 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              type="text"
-              required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              type="text"
+              name="city"
+              required
+              onChange={setRuralProducer}
             />
           </div>
         </div>
 
         <div className="flex-item">
-          <BrazilStatesListBox/>
+          <BrazilStatesListBox
+            onChange={changeBrazilState}
+          />
         </div>
       </div>
 
@@ -94,9 +115,11 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              type="text"
-              required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              type="text"
+              name="farm_area"
+              required
+              onChange={setRuralProducer}
             />
           </div>
         </div>
@@ -107,9 +130,11 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              type="text"
-              required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              type="text"
+              name="arable_area"
+              required
+              onChange={setRuralProducer}
             />
           </div>
         </div>
@@ -120,9 +145,11 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              type="text"
-              required
               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              type="text"
+              name="vegetation_area"
+              required
+              onChange={setRuralProducer}
             />
           </div>
         </div>

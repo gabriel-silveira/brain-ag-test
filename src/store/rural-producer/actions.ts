@@ -5,3 +5,8 @@ export const createRuralProducer = (payload: IRuralProducer) => ({
   type: RuralProducerActionTypes.CREATE,
   payload,
 });
+
+export const setRuralProducer = (payload: IRuralProducer) => ({
+  type: RuralProducerActionTypes.SET,
+  payload,
+});
