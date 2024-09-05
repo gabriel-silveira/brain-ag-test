@@ -1,11 +1,11 @@
 export interface IRuralProducer {
-  document: number,
+  document: string,
   producer_name: string,
   farm_name: string,
   city: string,
   state: string,
-  farm_area: number,
-  arable_area: number,
-  vegetation_area: number,
+  farm_area: string,
+  arable_area: string,
+  vegetation_area: string,
   crops_planted: string[]
 }

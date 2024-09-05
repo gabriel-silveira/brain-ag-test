@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useParams} from 'react-router';
 import BrazilStatesListBox from "../listboxes/brazil-states";
-import {useDispatch} from "react-redux";
-import {createRuralProducer} from "../../store/rural-producer/actions";
+import {useDispatch, useSelector} from "react-redux";
+import {createRuralProducer, editRuralProducer} from "../../store/rural-producer/actions";
 import {IRuralProducer} from "../../_interfaces/rural_producer";
 
 function RuralProducerForm() {
@@ -11,24 +11,50 @@ function RuralProducerForm() {
   const dispatch = useDispatch();
   const {id} = useParams();
 
-  console.log(id);
+  const {ruralProducer, ruralProducers}: {
+    ruralProducer: IRuralProducer,
+    ruralProducers: IRuralProducer[]
+    // @ts-ignore
+  } = useSelector(rootReducer => rootReducer.ruralProducerReducer);
+
+  useEffect(() => {
+    if (id) setDetails((prev) => ({...ruralProducer}));
+  }, [id, ruralProducer]);
 
   const goHome = () => navigate('/');
 
-  const [ruralProducer, setDetails] = useState<IRuralProducer>({
-    document: 0,
+  const [ruralProducerData, setDetails] = useState<IRuralProducer>({
+    document: "",
     producer_name: "",
     farm_name: "",
     city: "",
     state: "",
-    farm_area: 0,
-    arable_area: 0,
-    vegetation_area: 0,
+    farm_area: "",
+    arable_area: "",
+    vegetation_area: "",
     crops_planted: []
   });
 
   const submitRuralProducer = () => {
-    dispatch(createRuralProducer({...ruralProducer}));
+    if (id) {
+      const updatedRuralProducers = [];
+
+      let i = 0;
+
+      for (const currentRuralProducer of ruralProducers) {
+        if (i !== (Number(id) - 1)) {
+          updatedRuralProducers.push(currentRuralProducer);
+        } else {
+          updatedRuralProducers.push(ruralProducerData);
+        }
+
+        i += 1;
+      }
+
+      dispatch(editRuralProducer([...updatedRuralProducers]));
+    } else {
+      dispatch(createRuralProducer({...ruralProducerData}));
+    }
 
     goHome();
   };
@@ -50,10 +76,10 @@ function RuralProducerForm() {
       // add crop planted
       setDetails((prev) => ({
         ...prev,
-        crops_planted: [...ruralProducer.crops_planted, value],
+        crops_planted: [...ruralProducerData.crops_planted, value],
       }));
     } else if (!checked) {
-      const updatedCropsPlanted = [...ruralProducer.crops_planted];
+      const updatedCropsPlanted = [...ruralProducerData.crops_planted];
 
       updatedCropsPlanted.splice(updatedCropsPlanted.indexOf(value), 1);
 
@@ -78,6 +104,7 @@ function RuralProducerForm() {
               name="document"
               required
               onChange={setRuralProducer}
+              value={ruralProducerData.document}
             />
           </div>
         </div>
@@ -93,6 +120,7 @@ function RuralProducerForm() {
               name="producer_name"
               required
               onChange={setRuralProducer}
+              value={ruralProducerData.producer_name}
             />
           </div>
         </div>
@@ -108,6 +136,7 @@ function RuralProducerForm() {
               name="farm_name"
               required
               onChange={setRuralProducer}
+              value={ruralProducerData.farm_name}
             />
           </div>
         </div>
@@ -123,6 +152,7 @@ function RuralProducerForm() {
               name="city"
               required
               onChange={setRuralProducer}
+              value={ruralProducerData.city}
             />
           </div>
         </div>
@@ -146,6 +176,7 @@ function RuralProducerForm() {
               name="farm_area"
               required
               onChange={setRuralProducer}
+              value={ruralProducerData.farm_area}
             />
           </div>
         </div>
@@ -161,6 +192,7 @@ function RuralProducerForm() {
               name="arable_area"
               required
               onChange={setRuralProducer}
+              value={ruralProducerData.arable_area}
             />
           </div>
         </div>
@@ -176,6 +208,7 @@ function RuralProducerForm() {
               name="vegetation_area"
               required
               onChange={setRuralProducer}
+              value={ruralProducerData.vegetation_area}
             />
           </div>
         </div>

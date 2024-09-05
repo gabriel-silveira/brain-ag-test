@@ -1,28 +1,32 @@
 import RuralProducerActionTypes from "./action-types";
+import {IRuralProducer} from "../../_interfaces/rural_producer";
 
-const initialState = {
+const initialState: {
+  ruralProducers: IRuralProducer[],
+  ruralProducer: IRuralProducer,
+} = {
   ruralProducers: [
     {
-      document: 33871402000110,
+      document: "33871402000110",
       producer_name: "Gabriel Silveira de Souza",
       farm_name: "Fazenda do Gabriel",
       city: "Caraguatatuba",
       state: "São Paulo",
-      farm_area: 100,
-      arable_area: 50,
-      vegetation_area: 80,
+      farm_area: "100",
+      arable_area: "50",
+      vegetation_area: "80",
       crops_planted: ["Algodão", "Milho"]
     }
   ],
   ruralProducer: {
-    document: 0,
+    document: "",
     producer_name: "",
     farm_name: "",
     city: "",
     state: "",
-    farm_area: 0,
-    arable_area: 0,
-    vegetation_area: 0,
+    farm_area: "",
+    arable_area: "",
+    vegetation_area: "",
     crops_planted: []
   },
 };
@@ -36,6 +40,11 @@ const ruralProducerReducer = (
       return {
         ...state,
         ruralProducers: [...state.ruralProducers, action.payload],
+      };
+    case RuralProducerActionTypes.EDIT:
+      return {
+        ...state,
+        ...action.payload,
       };
     case RuralProducerActionTypes.SET:
       return {
