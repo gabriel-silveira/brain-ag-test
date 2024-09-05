@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import BrazilStatesListBox from "../listboxes/brazil-states";
 import {useDispatch} from "react-redux";
 import {createRuralProducer} from "../../store/rural-producer/actions";
+import {IRuralProducer} from "../../_interfaces/rural_producer";
 
 function RuralProducerForm() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ function RuralProducerForm() {
 
   const goHome = () => navigate('/');
 
-  const [ruralProducer, setDetails] = useState({
+  const [ruralProducer, setDetails] = useState<IRuralProducer>({
     document: 0,
     producer_name: "",
     farm_name: "",
@@ -37,6 +38,27 @@ function RuralProducerForm() {
   const changeBrazilState = (value: string) => {
     setDetails((prev) => ({ ...prev, state: value }));
   };
+
+  const handleCropsPlanted = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+
+    if (checked) {
+      // add crop planted
+      setDetails((prev) => ({
+        ...prev,
+        crops_planted: [...ruralProducer.crops_planted, value],
+      }));
+    } else if (!checked) {
+      const updatedCropsPlanted = [...ruralProducer.crops_planted];
+
+      updatedCropsPlanted.splice(updatedCropsPlanted.indexOf(value), 1);
+
+      setDetails((prev) => ({
+        ...prev,
+        crops_planted: [...updatedCropsPlanted],
+      }));
+    }
+  }
 
   return (
     <div className="card">
@@ -163,27 +185,27 @@ function RuralProducerForm() {
 
           <div className="mt-2 ml-2">
             <div className="cursor-pointer float-left mr-30">
-              <input type="checkbox" id="soja" name="soja" value="Soja"/>
+              <input type="checkbox" id="soja" name="soja" value="Soja" onChange={handleCropsPlanted}/>
               <label htmlFor="soja">Soja</label>
             </div>
 
             <div className="cursor-pointer float-left mr-30">
-              <input type="checkbox" id="milho" name="milho" value="Milho"/>
+              <input type="checkbox" id="milho" name="milho" value="Milho" onChange={handleCropsPlanted}/>
               <label htmlFor="milho">Milho</label>
             </div>
 
             <div className="cursor-pointer float-left mr-30">
-              <input type="checkbox" id="algodao" name="algodao" value="Algodão"/>
+              <input type="checkbox" id="algodao" name="algodao" value="Algodão" onChange={handleCropsPlanted}/>
               <label htmlFor="algodao">Algodão</label>
             </div>
 
             <div className="cursor-pointer float-left mr-30">
-              <input type="checkbox" id="cafe" name="cafe" value="Café"/>
+              <input type="checkbox" id="cafe" name="cafe" value="Café" onChange={handleCropsPlanted}/>
               <label htmlFor="cafe">Café</label>
             </div>
 
             <div className="cursor-pointer float-left">
-              <input type="checkbox" id="cana" name="cana" value="Cana de Açúcar"/>
+              <input type="checkbox" id="cana" name="cana" value="Cana de Açúcar" onChange={handleCropsPlanted}/>
               <label htmlFor="cana">Cana de Açúcar</label>
             </div>
           </div>

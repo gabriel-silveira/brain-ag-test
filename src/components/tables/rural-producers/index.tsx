@@ -9,7 +9,7 @@ function RuralProducersTable() {
   const goCreatePage = () => navigate('/create');
 
   // @ts-ignore
-  const { ruralProducers } = useSelector(rootReducer => rootReducer.ruralProducerReducer)
+  const {ruralProducers} = useSelector(rootReducer => rootReducer.ruralProducerReducer)
 
   return (
     <div>
@@ -58,9 +58,22 @@ function RuralProducersTableRow(ruralProducer: IRuralProducer, index: number) {
       <td className="px-4 py-2">{ruralProducer.farm_area}</td>
       <td className="px-4 py-2">{ruralProducer.arable_area}</td>
       <td className="px-4 py-2">{ruralProducer.vegetation_area}</td>
-      <td className="px-4 py-2">...</td>
+      <td className="px-4 py-2">
+        {ruralProducer.crops_planted.map(CropPlanted)}
+      </td>
       <td className="px-4 py-2"></td>
     </tr>
+  )
+}
+
+function CropPlanted(value: string, index: number) {
+  return (
+    <span
+      className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 mr-1"
+      key={index}
+    >
+      {value}
+    </span>
   )
 }
 
