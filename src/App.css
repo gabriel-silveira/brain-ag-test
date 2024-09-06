@@ -107,6 +107,10 @@
   cursor: pointer;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .float-left {
   float: left;
 }
