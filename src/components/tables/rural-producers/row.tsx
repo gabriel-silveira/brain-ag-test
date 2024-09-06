@@ -25,8 +25,8 @@ function RuralProducerTableRow(ruralProducer: IRuralProducer, index: number) {
     navigate(`/edit/${index + 1}`);
   };
 
-  const startRemoving = () => {
-    setData((prev) => ({showRemoveDialog: true}));
+  const startRemoving = (value: boolean) => {
+    setData((prev) => ({showRemoveDialog: value}));
   }
 
   return (
@@ -43,11 +43,19 @@ function RuralProducerTableRow(ruralProducer: IRuralProducer, index: number) {
         {ruralProducer.crops_planted.map(CropPlanted)}
       </td>
       <td className="px-4 py-2">
-        <PencilIcon className="size-5 icon-button float-left mr-2" onClick={startEditing} />
+        <PencilIcon
+          className="size-5 icon-button float-left mr-2"
+          onClick={startEditing} />
 
-        <TrashIcon className="size-5 icon-button" onClick={startRemoving} />
+        <TrashIcon
+          className="size-5 icon-button"
+          onClick={() => startRemoving(true)}
+        />
 
-        {data.showRemoveDialog ? (<RemoveRuralProducerDialog />) : ('')}
+        <RemoveRuralProducerDialog
+          visible={data.showRemoveDialog}
+          onClose={() => startRemoving(false)}
+        />
       </td>
     </tr>
   )
