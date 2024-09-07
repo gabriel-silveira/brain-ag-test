@@ -122,3 +122,14 @@
 .icon-button:hover {
   color: rgb(79, 70, 229);
 }
+
+input.error, input.error:focus {
+  border: 1px solid red !important;
+  outline: none;
+}
+
+.invalidField {
+  margin-top: 5px;
+  font-size: 0.75em;
+  color: red;
+}

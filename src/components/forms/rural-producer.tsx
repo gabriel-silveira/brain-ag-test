@@ -10,6 +10,7 @@ function RuralProducerForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {id} = useParams();
+
   const [ruralProducerData, setDetails] = useState<IRuralProducer>({
     document: "",
     producer_name: "",
@@ -22,6 +23,20 @@ function RuralProducerForm() {
     crops_planted: []
   });
 
+  const [validations, setValidations] = useState<{
+    [key: string]: boolean,
+  }>({
+    document: false,
+    producer_name: false,
+    farm_name: false,
+    city: false,
+    state: false,
+    farm_area: false,
+    arable_area: false,
+    vegetation_area: false,
+    crops_planted: false,
+  });
+
   const {ruralProducer, ruralProducers}: {
     ruralProducer: IRuralProducer,
     ruralProducers: IRuralProducer[]
@@ -32,31 +47,62 @@ function RuralProducerForm() {
     if (id) setDetails((prev) => ({...ruralProducer}));
   }, [id, ruralProducer]);
 
-  const goHome = () => navigate('/');
+  function goHome() {
+    navigate('/');
+  }
 
-  const submitRuralProducer = () => {
-    if (id) {
-      const updatedRuralProducers: IRuralProducer[] = [];
+  function validateFields() {
+    let hasInvalidField = false;
 
-      let i = 0;
+    for (const key of Object.keys(ruralProducerData)) {
+      if (key === 'crops_planted') {
+        if (!ruralProducerData[key].length) {
+          hasInvalidField = true;
 
-      for (const currentRuralProducer of ruralProducers) {
-        if (i !== (Number(id) - 1)) {
-          updatedRuralProducers.push(currentRuralProducer);
+          setValidations((prev) => ({...prev, crops_planted: true}));
         } else {
-          updatedRuralProducers.push(ruralProducerData);
+          setValidations((prev) => ({...prev, crops_planted: false}));
         }
+      } else {
+        // @ts-ignore
+        if (!ruralProducerData[key]) {
+          hasInvalidField = true;
 
-        i += 1;
+          setValidations((prev) => ({...prev, [key]: true}));
+        } else {
+          setValidations((prev) => ({...prev, [key]: false}));
+        }
       }
-
-      dispatch(updateRuralProducer([...updatedRuralProducers]));
-    } else {
-      dispatch(createRuralProducer({...ruralProducerData}));
     }
 
-    goHome();
-  };
+    return !hasInvalidField;
+  }
+
+  function submitRuralProducer() {
+    if (validateFields()) {
+      if (id) {
+        const updatedRuralProducers: IRuralProducer[] = [];
+
+        let i = 0;
+
+        for (const currentRuralProducer of ruralProducers) {
+          if (i !== (Number(id) - 1)) {
+            updatedRuralProducers.push(currentRuralProducer);
+          } else {
+            updatedRuralProducers.push(ruralProducerData);
+          }
+
+          i += 1;
+        }
+
+        dispatch(updateRuralProducer([...updatedRuralProducers]));
+      } else {
+        dispatch(createRuralProducer({...ruralProducerData}));
+      }
+
+      goHome();
+    }
+  }
 
   const setRuralProducer = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -98,13 +144,14 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              className={(validations.document ? "error" : "") + " block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"}
               type="text"
               name="document"
               required
-              onChange={setRuralProducer}
+              onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.document}
             />
+            {validations.document ? (<div className="invalidField">Informe o CPF / CNPJ</div>) : ''}
           </div>
         </div>
 
@@ -114,13 +161,14 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              className={(validations.producer_name ? "error" : "") + " block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"}
               type="text"
               name="producer_name"
               required
-              onChange={setRuralProducer}
+              onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.producer_name}
             />
+            {validations.producer_name ? (<div className="invalidField">Informe o nome do produtor</div>) : ''}
           </div>
         </div>
 
@@ -130,13 +178,14 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              className={(validations.farm_name ? "error" : "") + " block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"}
               type="text"
               name="farm_name"
               required
-              onChange={setRuralProducer}
+              onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.farm_name}
             />
+            {validations.farm_name ? (<div className="invalidField">Informe o nome da fazenda</div>) : ''}
           </div>
         </div>
 
@@ -146,19 +195,20 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              className={(validations.city ? "error" : "") + " block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"}
               type="text"
               name="city"
               required
-              onChange={setRuralProducer}
+              onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.city}
             />
+            {validations.city ? (<div className="invalidField">Informe a cidade</div>) : ''}
           </div>
         </div>
 
         <div className="flex-item">
           <BrazilStatesListBox
-            onChange={changeBrazilState}
+            onChange={($event) => changeBrazilState($event)}
           />
         </div>
       </div>
@@ -170,13 +220,14 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              className={(validations.farm_area ? "error" : "") + " block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"}
               type="text"
               name="farm_area"
               required
-              onChange={setRuralProducer}
+              onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.farm_area}
             />
+            {validations.farm_area ? (<div className="invalidField">Informe a área total</div>) : ''}
           </div>
         </div>
 
@@ -186,13 +237,14 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              className={(validations.arable_area ? "error" : "") + " block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"}
               type="text"
               name="arable_area"
               required
-              onChange={setRuralProducer}
+              onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.arable_area}
             />
+            {validations.arable_area ? (<div className="invalidField">Informe a área agricultável</div>) : ''}
           </div>
         </div>
 
@@ -202,13 +254,14 @@ function RuralProducerForm() {
           </label>
           <div className="mt-2">
             <input
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"
+              className={(validations.vegetation_area ? "error" : "") + " block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"}
               type="text"
               name="vegetation_area"
               required
-              onChange={setRuralProducer}
+              onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.vegetation_area}
             />
+            {validations.vegetation_area ? (<div className="invalidField">Informe a área de vegetação</div>) : ''}
           </div>
         </div>
       </div>
@@ -221,32 +274,63 @@ function RuralProducerForm() {
 
           <div className="mt-2 ml-2">
             <div className="cursor-pointer float-left mr-30">
-              <input type="checkbox" id="soja" name="soja" value="Soja" onChange={handleCropsPlanted}/>
+              <input
+                type="checkbox"
+                id="soja"
+                name="soja"
+                value="Soja"
+                onChange={($event) => handleCropsPlanted($event)}
+              />
               <label htmlFor="soja">Soja</label>
             </div>
 
             <div className="cursor-pointer float-left mr-30">
-              <input type="checkbox" id="milho" name="milho" value="Milho" onChange={handleCropsPlanted}/>
+              <input
+                type="checkbox"
+                id="milho"
+                name="milho"
+                value="Milho"
+                onChange={($event) => handleCropsPlanted($event)}
+              />
               <label htmlFor="milho">Milho</label>
             </div>
 
             <div className="cursor-pointer float-left mr-30">
-              <input type="checkbox" id="algodao" name="algodao" value="Algodão" onChange={handleCropsPlanted}/>
+              <input
+                type="checkbox"
+                id="algodao"
+                name="algodao"
+                value="Algodão"
+                onChange={($event) => handleCropsPlanted($event)}
+              />
               <label htmlFor="algodao">Algodão</label>
             </div>
 
             <div className="cursor-pointer float-left mr-30">
-              <input type="checkbox" id="cafe" name="cafe" value="Café" onChange={handleCropsPlanted}/>
+              <input
+                type="checkbox"
+                id="cafe"
+                name="cafe"
+                value="Café"
+                onChange={($event) => handleCropsPlanted($event)}
+              />
               <label htmlFor="cafe">Café</label>
             </div>
 
             <div className="cursor-pointer float-left">
-              <input type="checkbox" id="cana" name="cana" value="Cana de Açúcar" onChange={handleCropsPlanted}/>
+              <input
+                type="checkbox"
+                id="cana"
+                name="cana"
+                value="Cana de Açúcar"
+                onChange={($event) => handleCropsPlanted($event)}
+              />
               <label htmlFor="cana">Cana de Açúcar</label>
             </div>
           </div>
         </div>
       </div>
+      <div>{validations.crops_planted ? (<div className="invalidField">Informe as culturas plantadas</div>) : ''}</div>
 
       <hr className="mt-5"/>
 
@@ -260,7 +344,7 @@ function RuralProducerForm() {
           <button
             className="bg-white hover:bg-gray-100 text-gray-800 font-semibold px-3 py-1.5
             border border-gray-400 rounded shadow"
-            onClick={goHome}
+            onClick={() => goHome()}
           >
             Cancelar
           </button>
@@ -271,7 +355,7 @@ function RuralProducerForm() {
             className="flex w-full justify-center rounded-md bg-indigo-600 font-semibold px-3 py-1.5
             leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2
             focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            onClick={submitRuralProducer}
+            onClick={() => submitRuralProducer()}
           >
             Cadastrar
           </button>
