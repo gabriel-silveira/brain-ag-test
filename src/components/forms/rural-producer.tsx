@@ -5,6 +5,7 @@ import BrazilStatesListBox from "../listboxes/brazil-states";
 import {useDispatch, useSelector} from "react-redux";
 import {createRuralProducer, updateRuralProducer} from "../../store/rural-producer/actions";
 import {IRuralProducer} from "../../_interfaces/rural_producer";
+import CNPJInput from "../inputs/cnpj";
 
 function RuralProducerForm() {
   const navigate = useNavigate();
@@ -37,6 +38,8 @@ function RuralProducerForm() {
     crops_planted: false,
   });
 
+  const [invalidDocument, setInvalidDocument] = useState(false);
+
   const {ruralProducer, ruralProducers}: {
     ruralProducer: IRuralProducer,
     ruralProducers: IRuralProducer[]
@@ -51,7 +54,21 @@ function RuralProducerForm() {
     navigate('/');
   }
 
+  function checkDocumentFormat() {
+    if (ruralProducerData.document === '') return true;
+
+    if (ruralProducerData.document.length !== 14 && ruralProducerData.document.length !== 18) {
+      setValidations((prev) => ({...prev, document: true}));
+      setInvalidDocument(() => true);
+
+      return false;
+    }
+
+    return true;
+  }
+
   function validateFields() {
+    setInvalidDocument(() => false);
     let hasInvalidField = false;
 
     for (const key of Object.keys(ruralProducerData)) {
@@ -74,6 +91,8 @@ function RuralProducerForm() {
         }
       }
     }
+
+    if (!checkDocumentFormat()) return false;
 
     return !hasInvalidField;
   }
@@ -135,6 +154,13 @@ function RuralProducerForm() {
     }
   }
 
+  function setDocument(value: string) {
+    setDetails((prev) => ({
+      ...prev,
+      document: value,
+    }));
+  }
+
   return (
     <div className="card">
       <div className="flex-container rural-producer-form-first-row">
@@ -143,15 +169,12 @@ function RuralProducerForm() {
             CPF / CNPJ
           </label>
           <div className="mt-2">
-            <input
-              className={(validations.document ? "error" : "") + " block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-200 sm:text-sm sm:leading-6"}
-              type="text"
-              name="document"
-              required
-              onChange={($event) => setRuralProducer($event)}
+            <CNPJInput
               value={ruralProducerData.document}
+              error={validations.document}
+              onChange={($event) => setDocument($event)}
             />
-            {validations.document ? (<div className="invalidField">Informe o CPF / CNPJ</div>) : ''}
+            {validations.document ? (<div className="invalidField">{invalidDocument ? 'Documento inválido' : 'Informe o CPF / CNPJ'}</div>) : ''}
           </div>
         </div>
 
