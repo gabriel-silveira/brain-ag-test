@@ -1,32 +1,28 @@
-import React, {useState} from 'react';
-import {setRuralProducer} from "../../../store/rural-producer/actions";
+import React from 'react';
+import {setIndexToBeRemoved, setRuralProducer} from "../../../store/rural-producer/actions";
 import {PencilIcon, TrashIcon} from "@heroicons/react/24/solid";
 import {useDispatch, useSelector} from "react-redux";
-import {IRuralProducer} from "../../../_interfaces/rural_producer";
 import {useNavigate} from "react-router-dom";
 import CropPlanted from "./crop-planted";
-import RemoveRuralProducerDialog from "../../dialogs/rural-producer/remove";
+import {IRuralProducer} from "../../../_interfaces/rural_producer";
 
 function RuralProducerTableRow(ruralProducer: IRuralProducer, index: number) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [data, setData] = useState({
-    showRemoveDialog: false,
-  });
+  const {ruralProducers}: {
+    ruralProducers: IRuralProducer[]
+    // @ts-ignore
+  } = useSelector(rootReducer => rootReducer.ruralProducerReducer);
 
-  // @ts-ignore
-  const {ruralProducers} = useSelector(rootReducer => rootReducer.ruralProducerReducer);
-
-  const startEditing = () => {
-    dispatch(setRuralProducer({ ...ruralProducers[index] }));
-
+  function startEditing() {
+    dispatch(setRuralProducer({...ruralProducers[index]}));
 
     navigate(`/edit/${index + 1}`);
-  };
+  }
 
-  const startRemoving = (value: boolean) => {
-    setData((prev) => ({showRemoveDialog: value}));
+  function setRemoveIndexAndOpenDialog() {
+    dispatch(setIndexToBeRemoved(index));
   }
 
   return (
@@ -40,22 +36,23 @@ function RuralProducerTableRow(ruralProducer: IRuralProducer, index: number) {
       <td className="px-4 py-2 text-center">{ruralProducer.arable_area}</td>
       <td className="px-4 py-2 text-center">{ruralProducer.vegetation_area}</td>
       <td className="px-4 py-2">
-        {ruralProducer.crops_planted.map(CropPlanted)}
+        {ruralProducer.crops_planted.map((crop_planted, index) => CropPlanted(crop_planted, index))}
       </td>
       <td className="px-4 py-2">
-        <PencilIcon
-          className="size-5 icon-button float-left mr-2"
-          onClick={startEditing} />
-
-        <TrashIcon
-          className="size-5 icon-button"
-          onClick={() => startRemoving(true)}
-        />
-
-        <RemoveRuralProducerDialog
-          visible={data.showRemoveDialog}
-          onClose={() => startRemoving(false)}
-        />
+        <div className="grid justify-items-center">
+          <PencilIcon
+            className="size-5 icon-button mr-2"
+            onClick={() => startEditing()}
+          />
+        </div>
+      </td>
+      <td className="px-4 py-2">
+        <div className="grid justify-items-center">
+          <TrashIcon
+            className="size-5 icon-button"
+            onClick={() => setRemoveIndexAndOpenDialog()}
+          />
+        </div>
       </td>
     </tr>
   )

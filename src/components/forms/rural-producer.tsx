@@ -3,13 +3,24 @@ import {useNavigate} from "react-router-dom";
 import {useParams} from 'react-router';
 import BrazilStatesListBox from "../listboxes/brazil-states";
 import {useDispatch, useSelector} from "react-redux";
-import {createRuralProducer, editRuralProducer} from "../../store/rural-producer/actions";
+import {createRuralProducer, updateRuralProducer} from "../../store/rural-producer/actions";
 import {IRuralProducer} from "../../_interfaces/rural_producer";
 
 function RuralProducerForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {id} = useParams();
+  const [ruralProducerData, setDetails] = useState<IRuralProducer>({
+    document: "",
+    producer_name: "",
+    farm_name: "",
+    city: "",
+    state: "",
+    farm_area: "",
+    arable_area: "",
+    vegetation_area: "",
+    crops_planted: []
+  });
 
   const {ruralProducer, ruralProducers}: {
     ruralProducer: IRuralProducer,
@@ -23,21 +34,9 @@ function RuralProducerForm() {
 
   const goHome = () => navigate('/');
 
-  const [ruralProducerData, setDetails] = useState<IRuralProducer>({
-    document: "",
-    producer_name: "",
-    farm_name: "",
-    city: "",
-    state: "",
-    farm_area: "",
-    arable_area: "",
-    vegetation_area: "",
-    crops_planted: []
-  });
-
   const submitRuralProducer = () => {
     if (id) {
-      const updatedRuralProducers = [];
+      const updatedRuralProducers: IRuralProducer[] = [];
 
       let i = 0;
 
@@ -51,7 +50,7 @@ function RuralProducerForm() {
         i += 1;
       }
 
-      dispatch(editRuralProducer([...updatedRuralProducers]));
+      dispatch(updateRuralProducer([...updatedRuralProducers]));
     } else {
       dispatch(createRuralProducer({...ruralProducerData}));
     }

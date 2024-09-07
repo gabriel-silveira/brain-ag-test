@@ -1,6 +1,8 @@
 const RuralProducerActionTypes = {
   CREATE: 'rural-producer/create',
-  EDIT: 'rural-producer/edit',
+  UPDATE: 'rural-producer/update',
+  DELETE: 'rural-producer/delete',
+  SET_DELETE_INDEX: 'rural-producer/set-delete-index',
   SET: 'rural-producer/set',
 };
 
