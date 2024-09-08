@@ -185,3 +185,11 @@ input.error, input.error:focus {
   background-color: rgba(0, 255, 0, 0.05);
   border: 2px solid rgba(0, 128, 0, 0.3);
 }
+
+.inline-info {
+  color: grey;
+  border: 1px solid rgba(0,0,0,0.2);
+  background-color: rgba(0,0,0,0.02);
+  padding: 10px;
+  border-radius: 10px;
+}
