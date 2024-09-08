@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {createRuralProducer, updateRuralProducer} from "../../store/rural-producer/actions";
 import {IRuralProducer} from "../../_interfaces/rural_producer";
 import CNPJInput from "../inputs/cnpj";
+import Toaster from "../toaster";
 
 function RuralProducerForm() {
   const navigate = useNavigate();
@@ -384,6 +385,8 @@ function RuralProducerForm() {
           </button>
         </div>
       </div>
+
+      <Toaster />
     </div>
   )
 }

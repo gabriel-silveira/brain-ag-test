@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {Dialog, DialogBackdrop, DialogPanel, DialogTitle} from '@headlessui/react';
 import {ExclamationTriangleIcon} from '@heroicons/react/24/outline';
 import {IRuralProducer} from "../../../_interfaces/rural_producer";
@@ -7,18 +7,13 @@ import {useDispatch} from "react-redux";
 
 function RemoveRuralProducerDialog(
   props: {
-    visible: boolean,
     ruralProducer?: IRuralProducer,
     index: number,
     onClose: (remove: boolean) => void,
   }
 ) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setOpen(props.visible);
-  }, [props.visible]);
 
   function closeDialog(remove: boolean) {
     dispatch(setIndexToBeRemoved(undefined));

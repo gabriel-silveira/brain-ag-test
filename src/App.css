@@ -133,3 +133,39 @@ input.error, input.error:focus {
   font-size: 0.75em;
   color: red;
 }
+
+#remove-dialog-overlay {
+  z-index: 9998;
+  cursor: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+#toaster-wrapper {
+  z-index: 9998;
+  cursor: auto;
+  padding: 30px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#toaster {
+  z-index: 9999;
+  cursor: auto;
+  color: red;
+  padding: 10px 20px;
+  position: relative;
+  width: fit-content;
+  background-color: rgba(255, 0, 0, 0.05);
+  border-radius: 10px;
+  border: 2px solid rgba(255, 0, 0, 0.3);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.05);
+}

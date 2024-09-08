@@ -36,7 +36,13 @@ function RuralProducerTableRow(ruralProducer: IRuralProducer, index: number) {
       <td className="px-4 py-2 text-center">{ruralProducer.arable_area}</td>
       <td className="px-4 py-2 text-center">{ruralProducer.vegetation_area}</td>
       <td className="px-4 py-2">
-        {ruralProducer.crops_planted.map((crop_planted, index) => CropPlanted(crop_planted, index))}
+        {ruralProducer.crops_planted.map((crop_planted, index) => (
+          <CropPlanted
+            key={index}
+            value={crop_planted}
+            index={index}
+          />
+        ))}
       </td>
       <td className="px-4 py-2">
         <div className="grid justify-items-center">
