@@ -160,12 +160,21 @@ input.error, input.error:focus {
 #toaster {
   z-index: 9999;
   cursor: auto;
-  color: red;
   padding: 10px 20px;
   position: relative;
   width: fit-content;
-  background-color: rgba(255, 0, 0, 0.05);
   border-radius: 10px;
-  border: 2px solid rgba(255, 0, 0, 0.3);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+#toaster.negative {
+  color: red;
+  background-color: rgba(255, 0, 0, 0.05);
+  border: 2px solid rgba(255, 0, 0, 0.3);
+}
+
+#toaster.positive {
+  color: green;
+  background-color: rgba(0, 255, 0, 0.05);
+  border: 2px solid rgba(0, 128, 0, 0.3);
 }

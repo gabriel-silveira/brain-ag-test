@@ -1,9 +1,11 @@
 import React from 'react';
 
-function Toaster() {
+function Toaster(props: { message: string, type: string }) {
+  const { message, type } = props;
+
   return (
     <div id="toaster-wrapper">
-      <div id="toaster">A soma de área agrícultável e vegetação, não deverá ser maior que a área total da fazenda.</div>
+      <div id="toaster" className={type}>{ message }</div>
     </div>
   )
 }

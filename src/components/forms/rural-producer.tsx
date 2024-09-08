@@ -40,6 +40,7 @@ function RuralProducerForm() {
   });
 
   const [invalidDocument, setInvalidDocument] = useState(false);
+  const [invalidAreas, setInvalidAreas] = useState(false);
 
   const {ruralProducer, ruralProducers}: {
     ruralProducer: IRuralProducer,
@@ -68,8 +69,22 @@ function RuralProducerForm() {
     return true;
   }
 
+  function validWorkableArea() {
+    const { farm_area, arable_area, vegetation_area } = ruralProducerData;
+    if (!arable_area || !vegetation_area || !farm_area) return false;
+
+      if (Number(arable_area) + Number(vegetation_area) <= Number(farm_area)) return true;
+
+    setValidations((prev) => ({...prev, arable_area: true}));
+    setValidations((prev) => ({...prev, vegetation_area: true}));
+    setInvalidAreas(() => true);
+
+    return false;
+  }
+
   function validateFields() {
     setInvalidDocument(() => false);
+    setInvalidAreas(() => false);
     let hasInvalidField = false;
 
     for (const key of Object.keys(ruralProducerData)) {
@@ -94,6 +109,8 @@ function RuralProducerForm() {
     }
 
     if (!checkDocumentFormat()) return false;
+
+    if (!validWorkableArea()) return false;
 
     return !hasInvalidField;
   }
@@ -386,7 +403,12 @@ function RuralProducerForm() {
         </div>
       </div>
 
-      <Toaster />
+      {invalidAreas ? (
+        <Toaster
+          type="negative"
+          message="A soma de área agrícultável e vegetação, não deverá ser maior que a área total da fazenda."
+        />
+      ) : ('')}
     </div>
   )
 }
