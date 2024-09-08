@@ -11,11 +11,6 @@ export const updateRuralProducer = (payload: IRuralProducer[]) => ({
   payload: { ruralProducers: payload },
 });
 
-export const removeRuralProducer = (payload: IRuralProducer[]) => ({
-  type: RuralProducerActionTypes.DELETE,
-  payload: { ruralProducers: payload },
-});
-
 export const setIndexToBeRemoved = (payload: number | undefined) => ({
   type: RuralProducerActionTypes.SET_DELETE_INDEX,
   payload,

@@ -3,7 +3,7 @@ import RuralProducersTable from "../../components/tables/rural-producers";
 import RemoveRuralProducerDialog from "../../components/dialogs/rural-producer/remove";
 import {useDispatch, useSelector} from "react-redux";
 import {IRuralProducer} from "../../_interfaces/rural_producer";
-import {removeRuralProducer} from "../../store/rural-producer/actions";
+import {updateRuralProducer} from "../../store/rural-producer/actions";
 import BeatLoader from "react-spinners/BeatLoader";
 
 function RuralProducersPage() {
@@ -62,7 +62,7 @@ function RuralProducersPage() {
       i += 1;
     }
 
-    dispatch(removeRuralProducer([...updatedRuralProducers]));
+    dispatch(updateRuralProducer([...updatedRuralProducers]));
 
     setData((prev) => ({
       ...prev,

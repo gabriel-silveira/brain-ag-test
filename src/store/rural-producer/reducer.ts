@@ -46,11 +46,6 @@ const ruralProducerReducer = (
         ...state,
         ...action.payload,
       };
-    case RuralProducerActionTypes.DELETE:
-      return {
-        ...state,
-        ...action.payload,
-      };
     case RuralProducerActionTypes.SET_DELETE_INDEX:
       return {
         ...state,
