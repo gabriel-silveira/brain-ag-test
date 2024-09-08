@@ -56,6 +56,16 @@ const ruralProducerReducer = (
         ...state,
         ruralProducer: {...action.payload},
       };
+    case RuralProducerActionTypes.SHOW_CREATE_TOASTER:
+      return {
+        ...state,
+        showCreateToaster: action.payload,
+      };
+    case RuralProducerActionTypes.SHOW_EDIT_TOASTER:
+      return {
+        ...state,
+        showEditToaster: action.payload,
+      };
     default:
       return state;
   }

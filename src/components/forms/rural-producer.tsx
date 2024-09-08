@@ -3,10 +3,15 @@ import {useNavigate} from "react-router-dom";
 import {useParams} from 'react-router';
 import BrazilStatesListBox from "../listboxes/brazil-states";
 import {useDispatch, useSelector} from "react-redux";
-import {createRuralProducer, updateRuralProducer} from "../../store/rural-producer/actions";
+import {
+  createRuralProducer,
+  showCreateToaster,
+  showEditToaster,
+  updateRuralProducer
+} from "../../store/rural-producer/actions";
 import {IRuralProducer} from "../../_interfaces/rural_producer";
 import CNPJInput from "../inputs/cnpj";
-import Toaster from "../toaster";
+import Toaster from "../toasters";
 
 function RuralProducerForm() {
   const navigate = useNavigate();
@@ -133,8 +138,10 @@ function RuralProducerForm() {
         }
 
         dispatch(updateRuralProducer([...updatedRuralProducers]));
+        dispatch(showEditToaster(true));
       } else {
         dispatch(createRuralProducer({...ruralProducerData}));
+        dispatch(showCreateToaster(true));
       }
 
       goHome();
@@ -408,7 +415,7 @@ function RuralProducerForm() {
           type="negative"
           message="A soma de área agrícultável e vegetação, não deverá ser maior que a área total da fazenda."
         />
-      ) : ('')}
+      ) : ''}
     </div>
   )
 }

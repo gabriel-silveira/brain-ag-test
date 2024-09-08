@@ -20,3 +20,13 @@ export const setRuralProducer = (payload: IRuralProducer) => ({
   type: RuralProducerActionTypes.SET,
   payload,
 });
+
+export const showCreateToaster = (payload: boolean) => ({
+  type: RuralProducerActionTypes.SHOW_CREATE_TOASTER,
+  payload,
+})
+
+export const showEditToaster = (payload: boolean) => ({
+  type: RuralProducerActionTypes.SHOW_EDIT_TOASTER,
+  payload,
+})

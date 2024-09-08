@@ -15,20 +15,23 @@ function CNPJInput(props: {
   }, [value]);
 
   function updateInputValue(e: React.ChangeEvent<HTMLInputElement>) {
+    console.log('change');
     const {value: newValue} = e.target;
 
     setInputValue(() => (newValue));
 
-    props.onChange(newValue);
+    onChange(newValue);
   }
 
   function removeFormat() {
+    console.log('focus');
     const noFormat = onlyNumbers(inputValue);
     setInputValue(() => (noFormat));
     props.onChange(noFormat);
   }
 
   function formatDocument() {
+    console.log('blur');
     if (inputValue.length === 11) {
       const formattedCPF = CPF(inputValue);
       setInputValue(() => (formattedCPF));
