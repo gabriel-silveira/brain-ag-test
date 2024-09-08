@@ -1,0 +1,19 @@
+.rural-producers-dashboard {
+    margin-bottom: 20px;
+}
+
+.rural-producers-dashboard > div {
+    padding: 0 10px;
+}
+
+.rural-producers-dashboard .card .number {
+    margin-top: -15px;
+    font-size: 50px;
+    font-weight: 500;
+}
+
+.rural-producers-dashboard .card .subtitle {
+    margin-top: -5px;
+    margin-bottom: 3px;
+    font-size: 14px;
+}

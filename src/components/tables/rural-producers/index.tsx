@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import RuralProducerTableRow from "./row";
 import BeatLoader from "react-spinners/BeatLoader";
 import {IRuralProducer} from "../../../_interfaces/rural_producer";
+import RuralProducersDashboard from "../../dashboards/rural-producers";
 
 function RuralProducersTable() {
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ function RuralProducersTable() {
       >
         Cadastrar
       </button>
+
+      <RuralProducersDashboard/>
 
       <div>
         {loading ? (

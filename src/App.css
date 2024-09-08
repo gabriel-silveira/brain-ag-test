@@ -55,6 +55,7 @@
 .flex-item {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .flex-item.w-1 {
