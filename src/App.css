@@ -128,7 +128,13 @@ input.error, input.error:focus {
   outline: none;
 }
 
-.invalidField {
+.field-hint {
+  margin-top: 5px;
+  font-size: 0.75em;
+  color: grey;
+}
+
+.invalid-field {
   margin-top: 5px;
   font-size: 0.75em;
   color: red;

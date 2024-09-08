@@ -23,7 +23,7 @@ function RuralProducerForm() {
     producer_name: "",
     farm_name: "",
     city: "",
-    state: "",
+    state: "Acre",
     farm_area: "",
     arable_area: "",
     vegetation_area: "",
@@ -199,7 +199,11 @@ function RuralProducerForm() {
               error={validations.document}
               onChange={($event) => setDocument($event)}
             />
-            {validations.document ? (<div className="invalidField">{invalidDocument ? 'Documento inválido' : 'Informe o CPF / CNPJ'}</div>) : ''}
+            {validations.document ? (
+              <div className="invalid-field">{invalidDocument ? 'Documento inválido' : 'Informe o CPF / CNPJ'}</div>
+            ) : (
+              <div className="field-hint">Digite somente números</div>
+            )}
           </div>
         </div>
 
@@ -216,7 +220,7 @@ function RuralProducerForm() {
               onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.producer_name}
             />
-            {validations.producer_name ? (<div className="invalidField">Informe o nome do produtor</div>) : ''}
+            {validations.producer_name ? (<div className="invalid-field">Informe o nome do produtor</div>) : ''}
           </div>
         </div>
 
@@ -233,7 +237,7 @@ function RuralProducerForm() {
               onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.farm_name}
             />
-            {validations.farm_name ? (<div className="invalidField">Informe o nome da fazenda</div>) : ''}
+            {validations.farm_name ? (<div className="invalid-field">Informe o nome da fazenda</div>) : ''}
           </div>
         </div>
 
@@ -250,7 +254,7 @@ function RuralProducerForm() {
               onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.city}
             />
-            {validations.city ? (<div className="invalidField">Informe a cidade</div>) : ''}
+            {validations.city ? (<div className="invalid-field">Informe a cidade</div>) : ''}
           </div>
         </div>
 
@@ -275,7 +279,7 @@ function RuralProducerForm() {
               onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.farm_area}
             />
-            {validations.farm_area ? (<div className="invalidField">Informe a área total</div>) : ''}
+            {validations.farm_area ? (<div className="invalid-field">Informe a área total</div>) : ''}
           </div>
         </div>
 
@@ -292,7 +296,7 @@ function RuralProducerForm() {
               onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.arable_area}
             />
-            {validations.arable_area ? (<div className="invalidField">Informe a área agricultável</div>) : ''}
+            {validations.arable_area ? (<div className="invalid-field">Informe a área agricultável</div>) : ''}
           </div>
         </div>
 
@@ -309,7 +313,7 @@ function RuralProducerForm() {
               onChange={($event) => setRuralProducer($event)}
               value={ruralProducerData.vegetation_area}
             />
-            {validations.vegetation_area ? (<div className="invalidField">Informe a área de vegetação</div>) : ''}
+            {validations.vegetation_area ? (<div className="invalid-field">Informe a área de vegetação</div>) : ''}
           </div>
         </div>
       </div>
@@ -378,7 +382,7 @@ function RuralProducerForm() {
           </div>
         </div>
       </div>
-      <div>{validations.crops_planted ? (<div className="invalidField">Informe as culturas plantadas</div>) : ''}</div>
+      <div>{validations.crops_planted ? (<div className="invalid-field">Informe as culturas plantadas</div>) : ''}</div>
 
       <hr className="mt-5"/>
 

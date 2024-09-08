@@ -4,7 +4,7 @@ import Toaster from "../../components/toasters";
 import {useSelector} from "react-redux";
 
 function RuralProducersPage() {
-  const [createSuccess, createEditSuccess] = useState(false);
+  const [createSuccess, setCreateSuccess] = useState(false);
   const [editSuccess, setEditSuccess] = useState(false);
 
   const {showCreateToaster, showEditToaster}: {
@@ -14,6 +14,10 @@ function RuralProducersPage() {
   } = useSelector(rootReducer => rootReducer.ruralProducerReducer);
 
   useEffect(() => {
+    if (showCreateToaster) {
+      setCreateSuccess(() => true);
+    }
+
     if (showEditToaster) {
       setEditSuccess(() => true);
     }
@@ -27,7 +31,7 @@ function RuralProducersPage() {
         <Toaster
           type="positive"
           message="Produtor rural criado com sucesso"
-          onClose={() => createEditSuccess(() => false)}
+          onClose={() => setCreateSuccess(() => false)}
           timeout={5000}
         />
       ) : ''}

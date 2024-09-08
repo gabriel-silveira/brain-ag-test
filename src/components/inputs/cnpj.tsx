@@ -31,15 +31,16 @@ function CNPJInput(props: {
   }
 
   function formatDocument() {
-    console.log('blur');
-    if (inputValue.length === 11) {
-      const formattedCPF = CPF(inputValue);
-      setInputValue(() => (formattedCPF));
-      props.onChange(formattedCPF);
-    } else if (inputValue.length === 14) {
-      const formattedCNPJ = CNPJ(inputValue);
-      setInputValue(() => (formattedCNPJ));
-      props.onChange(formattedCNPJ);
+    if (!inputValue.includes('.') && !inputValue.includes('/') && !inputValue.includes('-')) {
+      if (inputValue.length === 11) {
+        const formattedCPF = CPF(inputValue);
+        setInputValue(() => (formattedCPF));
+        props.onChange(formattedCPF);
+      } else if (inputValue.length === 14) {
+        const formattedCNPJ = CNPJ(inputValue);
+        setInputValue(() => (formattedCNPJ));
+        props.onChange(formattedCNPJ);
+      }
     }
   }
 
