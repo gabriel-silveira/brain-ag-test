@@ -4,6 +4,7 @@ import {ExclamationTriangleIcon} from '@heroicons/react/24/outline';
 import {IRuralProducer} from "../../../_interfaces/rural_producer";
 import {setIndexToBeRemoved} from "../../../store/rural-producer/actions";
 import {useDispatch} from "react-redux";
+import {setDeleteIndex} from "../../../store/rural-producer/slice";
 
 function RemoveRuralProducerDialog(
   props: {
@@ -16,7 +17,7 @@ function RemoveRuralProducerDialog(
   const dispatch = useDispatch();
 
   function closeDialog(remove: boolean) {
-    dispatch(setIndexToBeRemoved(undefined));
+    dispatch(setDeleteIndex(undefined));
 
     setOpen(false);
 
@@ -24,7 +25,7 @@ function RemoveRuralProducerDialog(
   }
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-10">
+    <Dialog open={open} onClose={($event) => setOpen($event)} className="relative z-10">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"

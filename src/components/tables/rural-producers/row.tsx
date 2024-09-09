@@ -22,6 +22,7 @@ function RuralProducerTableRow(ruralProducer: IRuralProducer, index: number) {
   }
 
   function setRemoveIndexAndOpenDialog() {
+    console.log('index', index);
     dispatch(setDeleteIndex(index));
   }
 

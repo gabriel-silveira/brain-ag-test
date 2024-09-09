@@ -71,7 +71,7 @@ function RuralProducersTable() {
                 </table>
               </div>
             ) : (
-              <div className="inline-info">Nenhuma produtor rural cadastrado</div>
+              <div className="inline-info">Nenhum produtor rural cadastrado</div>
             )}
           </div>
         )}

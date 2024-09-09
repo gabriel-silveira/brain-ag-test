@@ -15,7 +15,6 @@ function CNPJInput(props: {
   }, [value]);
 
   function updateInputValue(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log('change');
     const {value: newValue} = e.target;
 
     setInputValue(() => (newValue));
@@ -24,7 +23,6 @@ function CNPJInput(props: {
   }
 
   function removeFormat() {
-    console.log('focus');
     const noFormat = onlyNumbers(inputValue);
     setInputValue(() => (noFormat));
     props.onChange(noFormat);

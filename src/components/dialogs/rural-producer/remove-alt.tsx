@@ -31,8 +31,6 @@ function RemoveRuralProducerAlt(props: {
       i += 1;
     }
 
-    console.log(updatedRuralProducers);
-
     dispatch(updateRuralProducer([...updatedRuralProducers]));
   }
 
