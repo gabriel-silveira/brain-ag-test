@@ -66,12 +66,62 @@ function RuralProducersDashboard() {
     };
   }
 
+  function cultureData() {
+    const totals: { [key: string]: number } = {};
+    let grandTotal = 0;
+
+    const series: number[] = [];
+    const labels: string[] = [];
+
+    for (const ruralProducer of ruralProducers) {
+      for (const crop_planted of ruralProducer.crops_planted) {
+        if (!totals[crop_planted]) totals[crop_planted] = 1;
+        else totals[crop_planted] += 1;
+      }
+    }
+
+    for (const key of Object.keys(totals)) {
+      grandTotal += totals[key];
+    }
+
+    for (const key of Object.keys(totals)) {
+      const percentage = Number(((totals[key] / grandTotal) * 100).toFixed(0));
+      series.push(percentage);
+      labels.push(key);
+    }
+
+    return {
+      options: {
+        plotOptions: {
+          pie: {
+            expandOnClick: true
+          },
+        },
+        dataLabels: {
+          enabled: true,
+          formatter: function (val: number) {
+            return val.toFixed(0) + "%"
+          },
+          offsetX: 100,
+          offsetY: 100,
+        },
+        legend: {
+          show: true,
+          formatter: function(label: string, opts: { seriesIndex: number }) {
+            return labels[opts.seriesIndex];
+          }
+        }
+      },
+      series,
+      labels,
+    };
+  }
+
   function arableAreaData() {
     let totalArable = 0;
     let totalVegetation = 0;
 
     for (const ruralProducer of ruralProducers) {
-      console.log(Number(ruralProducer.arable_area), Number(ruralProducer.vegetation_area));
       totalArable += Number(ruralProducer.arable_area);
       totalVegetation += Number(ruralProducer.vegetation_area);
     }
@@ -131,7 +181,12 @@ function RuralProducersDashboard() {
       </div>
 
       <div className="flex-item" style={{width:"30%"}}>
-
+        <Chart
+          options={cultureData().options}
+          series={cultureData().series}
+          type="pie"
+          height="280"
+        />
       </div>
 
       <div className="flex-item" style={{width:"30%"}}>

@@ -9,9 +9,9 @@ import {
   showEditToaster,
   updateRuralProducer
 } from "../../store/rural-producer/actions";
-import {IRuralProducer} from "../../_interfaces/rural_producer";
 import CNPJInput from "../inputs/cnpj";
 import Toaster from "../toasters";
+import {IRuralProducer} from "../../_interfaces/rural_producer";
 
 function RuralProducerForm() {
   const navigate = useNavigate();
@@ -331,6 +331,7 @@ function RuralProducerForm() {
                 id="soja"
                 name="soja"
                 value="Soja"
+                checked={ruralProducerData.crops_planted.includes('Soja')}
                 onChange={($event) => handleCropsPlanted($event)}
               />
               <label htmlFor="soja">Soja</label>
@@ -342,6 +343,7 @@ function RuralProducerForm() {
                 id="milho"
                 name="milho"
                 value="Milho"
+                checked={ruralProducerData.crops_planted.includes('Milho')}
                 onChange={($event) => handleCropsPlanted($event)}
               />
               <label htmlFor="milho">Milho</label>
@@ -353,6 +355,7 @@ function RuralProducerForm() {
                 id="algodao"
                 name="algodao"
                 value="Algodão"
+                checked={ruralProducerData.crops_planted.includes('Algodão')}
                 onChange={($event) => handleCropsPlanted($event)}
               />
               <label htmlFor="algodao">Algodão</label>
@@ -364,6 +367,7 @@ function RuralProducerForm() {
                 id="cafe"
                 name="cafe"
                 value="Café"
+                checked={ruralProducerData.crops_planted.includes('Café')}
                 onChange={($event) => handleCropsPlanted($event)}
               />
               <label htmlFor="cafe">Café</label>
@@ -375,6 +379,7 @@ function RuralProducerForm() {
                 id="cana"
                 name="cana"
                 value="Cana de Açúcar"
+                checked={ruralProducerData.crops_planted.includes('Cana de Açúcar')}
                 onChange={($event) => handleCropsPlanted($event)}
               />
               <label htmlFor="cana">Cana de Açúcar</label>
