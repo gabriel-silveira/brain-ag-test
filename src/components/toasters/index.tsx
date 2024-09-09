@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {showCreateToaster, showEditToaster} from "../../store/rural-producer/actions";
+import {showCreateToaster, showEditToaster, showRemoveToaster} from '../../store/rural-producer/ruralProducerSlice';
 import {useDispatch} from "react-redux";
 
 function Toaster(props: {
@@ -13,7 +13,7 @@ function Toaster(props: {
   onClose: undefined,
   timeout: undefined,
 }) {
-  const { message, type, onClose, timeout } = props;
+  const {message, type, onClose, timeout} = props;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,12 +29,13 @@ function Toaster(props: {
     return () => {
       dispatch(showCreateToaster(false));
       dispatch(showEditToaster(false));
+      dispatch(showRemoveToaster(false));
     };
   }, [dispatch]);
 
   return (
     <div id="toaster-wrapper">
-      <div id="toaster" className={type}>{ message }</div>
+      <div id="toaster" className={type}>{message}</div>
     </div>
   )
 }

@@ -1,14 +1,11 @@
 import React from 'react';
 import './styles.css';
-import {IRuralProducer} from "../../../_interfaces/rural_producer";
 import {useSelector} from "react-redux";
 import Chart from "react-apexcharts";
+import type {RootState} from "../../../store/store";
 
 function RuralProducersDashboard() {
-  const {ruralProducers}: {
-    ruralProducers: IRuralProducer[],
-    // @ts-ignore
-  } = useSelector(rootReducer => rootReducer.ruralProducerReducer);
+  const ruralProducers = useSelector((state: RootState) => state.ruralProducerReducer.ruralProducers);
 
   function totalFarmsArea() {
     let totalFarmsArea = 0;

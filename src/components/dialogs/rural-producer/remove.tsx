@@ -2,9 +2,8 @@ import {useState} from 'react';
 import {Dialog, DialogBackdrop, DialogPanel, DialogTitle} from '@headlessui/react';
 import {ExclamationTriangleIcon} from '@heroicons/react/24/outline';
 import {IRuralProducer} from "../../../_interfaces/rural_producer";
-import {setIndexToBeRemoved} from "../../../store/rural-producer/actions";
 import {useDispatch} from "react-redux";
-import {setDeleteIndex} from "../../../store/rural-producer/slice";
+import {setDeleteIndex} from "../../../store/rural-producer/ruralProducerSlice";
 
 function RemoveRuralProducerDialog(
   props: {

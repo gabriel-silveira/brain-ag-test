@@ -10,8 +10,9 @@ import {
   showCreateToaster,
   showEditToaster,
   updateRuralProducer
-} from '../../store/rural-producer/slice'
+} from '../../store/rural-producer/ruralProducerSlice';
 import {IRuralProducer} from "../../_interfaces/rural_producer";
+import type {RootState} from "../../store/store";
 
 function RuralProducerForm() {
   const navigate = useNavigate();
@@ -47,14 +48,11 @@ function RuralProducerForm() {
   const [invalidDocument, setInvalidDocument] = useState(false);
   const [invalidAreas, setInvalidAreas] = useState(false);
 
-  const {ruralProducer, ruralProducers}: {
-    ruralProducer: IRuralProducer,
-    ruralProducers: IRuralProducer[]
-    // @ts-ignore
-  } = useSelector(rootReducer => rootReducer.ruralProducerReducer);
+  const ruralProducer = useSelector((state: RootState) => state.ruralProducerReducer.ruralProducer);
+  const ruralProducers = useSelector((state: RootState) => state.ruralProducerReducer.ruralProducers);
 
   useEffect(() => {
-    if (id) setDetails((prev) => ({...ruralProducer}));
+    if (id && ruralProducer) setDetails(() => ({...ruralProducer}));
   }, [id, ruralProducer]);
 
   function goHome() {

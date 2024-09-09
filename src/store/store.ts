@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import ruralProducerReducer from "./rural-producer/slice";
+import ruralProducerReducer from "./rural-producer/ruralProducerSlice";
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     ruralProducerReducer,
   },

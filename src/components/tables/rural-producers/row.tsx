@@ -4,16 +4,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import CropPlanted from "./crop-planted";
 import {IRuralProducer} from "../../../_interfaces/rural_producer";
-import {setDeleteIndex, setRuralProducer} from "../../../store/rural-producer/slice";
+import {setDeleteIndex, setRuralProducer} from "../../../store/rural-producer/ruralProducerSlice";
+import type {RootState} from "../../../store/store";
 
 function RuralProducerTableRow(ruralProducer: IRuralProducer, index: number) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const {ruralProducers}: {
-    ruralProducers: IRuralProducer[]
-    // @ts-ignore
-  } = useSelector(rootReducer => rootReducer.ruralProducerReducer);
+  const ruralProducers = useSelector((state: RootState) => state.ruralProducerReducer.ruralProducers);
 
   function startEditing() {
     dispatch(setRuralProducer({...ruralProducers[index]}));
@@ -22,8 +19,8 @@ function RuralProducerTableRow(ruralProducer: IRuralProducer, index: number) {
   }
 
   function setRemoveIndexAndOpenDialog() {
-    console.log('index', index);
-    dispatch(setDeleteIndex(index));
+    // dispatch(setDeleteIndex(index));
+    navigate(`/remove/${index + 1}`);
   }
 
   return (
@@ -37,13 +34,7 @@ function RuralProducerTableRow(ruralProducer: IRuralProducer, index: number) {
       <td className="px-4 py-2 text-center">{ruralProducer.arable_area}</td>
       <td className="px-4 py-2 text-center">{ruralProducer.vegetation_area}</td>
       <td className="px-4 py-2">
-        {ruralProducer.crops_planted.map((crop_planted, index) => (
-          <CropPlanted
-            key={index}
-            value={crop_planted}
-            index={index}
-          />
-        ))}
+        {ruralProducer.crops_planted.map((crop_planted, index) => CropPlanted(crop_planted, index))}
       </td>
       <td className="px-4 py-2">
         <div className="grid justify-items-center">

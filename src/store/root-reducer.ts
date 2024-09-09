@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import ruralProducerReducer from "./rural-producer/slice";
+import ruralProducerReducer from "./rural-producer/ruralProducerSlice";
 
 const rootReducer = combineReducers({
   ruralProducerReducer,
