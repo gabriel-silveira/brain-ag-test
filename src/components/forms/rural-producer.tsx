@@ -260,6 +260,7 @@ function RuralProducerForm() {
 
         <div className="flex-item">
           <BrazilStatesListBox
+            value={ruralProducerData.state}
             onChange={($event) => changeBrazilState($event)}
           />
         </div>
