@@ -159,19 +159,23 @@ function RuralProducersDashboard() {
     <div className="flex-container w-full rural-producers-dashboard">
       <div className="flex-item text-center" style={{width:"20%"}}>
         <div className="card">
-          <div className="number">{ruralProducers.length}</div>
-          <div className="subtitle">Total de fazendas</div>
+          <div>
+            <div className="number w-full">{ruralProducers.length}</div>
+            <div className="subtitle w-full">Total de fazendas</div>
+          </div>
         </div>
       </div>
 
       <div className="flex-item text-center" style={{width:"20%"}}>
         <div className="card">
-          <div className="number">{totalFarmsArea()}</div>
-          <div className="subtitle">Área total das fazendas (ha)</div>
+          <div>
+            <div className="number">{totalFarmsArea()}</div>
+            <div className="subtitle">Área total das fazendas (ha)</div>
+          </div>
         </div>
       </div>
 
-      <div className="flex-item" style={{width:"30%"}}>
+      <div className="flex-item" style={{width: "30%"}}>
         <Chart
           options={statesChartData().options}
           series={statesChartData().series}

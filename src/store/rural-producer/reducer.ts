@@ -2,9 +2,11 @@ import RuralProducerActionTypes from "./action-types";
 import {IRuralProducer} from "../../_interfaces/rural_producer";
 
 const initialState: {
+  pageTitle: string,
   ruralProducers: IRuralProducer[],
   ruralProducer: IRuralProducer,
 } = {
+  pageTitle: '',
   ruralProducers: [
     {
       document: "33871402000110",
