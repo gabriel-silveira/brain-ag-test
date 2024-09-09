@@ -73,10 +73,11 @@ function RuralProducerForm() {
   }
 
   function validWorkableArea() {
-    const { farm_area, arable_area, vegetation_area } = ruralProducerData;
+    const {farm_area, arable_area, vegetation_area} = ruralProducerData;
+
     if (!arable_area || !vegetation_area || !farm_area) return false;
 
-      if (Number(arable_area) + Number(vegetation_area) <= Number(farm_area)) return true;
+    if (Number(arable_area) + Number(vegetation_area) <= Number(farm_area)) return true;
 
     setValidations((prev) => ({...prev, arable_area: true}));
     setValidations((prev) => ({...prev, vegetation_area: true}));
@@ -109,6 +110,20 @@ function RuralProducerForm() {
           setValidations((prev) => ({...prev, [key]: false}));
         }
       }
+    }
+
+    const {farm_area, arable_area, vegetation_area} = ruralProducerData;
+
+    if (farm_area.match(/[^$,.\d]/)) {
+      setValidations((prev) => ({...prev, farm_area: true}));
+    }
+
+    if (arable_area.match(/[^$,.\d]/)) {
+      setValidations((prev) => ({...prev, arable_area: true}));
+    }
+
+    if (vegetation_area.match(/[^$,.\d]/)) {
+      setValidations((prev) => ({...prev, vegetation_area: true}));
     }
 
     if (!checkDocumentFormat()) return false;
@@ -386,7 +401,8 @@ function RuralProducerForm() {
           </div>
         </div>
       </div>
-      <div>{validations.crops_planted ? (<div className="invalid-field">Informe as culturas plantadas</div>) : null}</div>
+      <div>{validations.crops_planted ? (
+        <div className="invalid-field">Informe as culturas plantadas</div>) : null}</div>
 
       <hr className="mt-5"/>
 
