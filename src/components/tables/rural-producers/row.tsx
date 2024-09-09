@@ -1,10 +1,10 @@
 import React from 'react';
-import {setIndexToBeRemoved, setRuralProducer} from "../../../store/rural-producer/actions";
 import {PencilIcon, TrashIcon} from "@heroicons/react/24/solid";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import CropPlanted from "./crop-planted";
 import {IRuralProducer} from "../../../_interfaces/rural_producer";
+import {setDeleteIndex, setRuralProducer} from "../../../store/rural-producer/slice";
 
 function RuralProducerTableRow(ruralProducer: IRuralProducer, index: number) {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function RuralProducerTableRow(ruralProducer: IRuralProducer, index: number) {
   }
 
   function setRemoveIndexAndOpenDialog() {
-    dispatch(setIndexToBeRemoved(index));
+    dispatch(setDeleteIndex(index));
   }
 
   return (

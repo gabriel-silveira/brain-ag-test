@@ -3,14 +3,14 @@ import {useNavigate} from "react-router-dom";
 import {useParams} from 'react-router';
 import BrazilStatesListBox from "../listboxes/brazil-states";
 import {useDispatch, useSelector} from "react-redux";
+import CNPJInput from "../inputs/cnpj";
+import Toaster from "../toasters";
 import {
   createRuralProducer,
   showCreateToaster,
   showEditToaster,
   updateRuralProducer
-} from "../../store/rural-producer/actions";
-import CNPJInput from "../inputs/cnpj";
-import Toaster from "../toasters";
+} from '../../store/rural-producer/slice'
 import {IRuralProducer} from "../../_interfaces/rural_producer";
 
 function RuralProducerForm() {
@@ -137,6 +137,8 @@ function RuralProducerForm() {
           i += 1;
         }
 
+        console.log('Via!');
+        console.log(updateRuralProducer);
         dispatch(updateRuralProducer([...updatedRuralProducers]));
         dispatch(showEditToaster(true));
       } else {
